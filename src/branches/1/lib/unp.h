@@ -76,6 +76,7 @@ void Setsockopt(int, int, int, const void *, socklen_t);
 int	Tcp_connect(const char *, const char *);
 int Tcp_listen(const char *, const char *, socklen_t *);
 void	*Malloc(size_t);
+void *Calloc(size_t n, size_t size);
 
 
 

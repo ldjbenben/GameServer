@@ -1,0 +1,56 @@
+VERSION =
+EXE = serv08$(VERSION)
+objects = $(EXE).o wrappthread.o pthread08.o unp.o readline.o wraplib.o wrapstdio.o wrapunix.o wrapsock.o error.o tcp_connect.o tcp_listen.o sig_chld_waitpid.o web_child.o pr_cpu_time.o signal.o
+CC = gcc
+CFLAGS = -Wall -g -lpthread
+
+$(EXE):$(objects)
+	$(CC) $(CFLAGS) -o $(EXE) $(objects)
+	
+$(EXE).o:$(EXE)$(VERSION).c
+	$(CC) $(CFLAGS) -c $(EXE)$(VERSION).c -I ../lib
+
+pthread08.o:./pthread08.c
+	$(CC) $(CFLAGS) -c ./pthread08.c -I ../lib
+	
+wrappthread.o:../lib/wrappthread.c ./unpthread.h
+	$(CC) $(CFLAGS) -c ../lib/wrappthread.c
+	
+unp.o:../lib/unp.c ../lib/unp.h
+	$(CC) $(CFLAGS) -c ../lib/unp.c
+
+readline.o:../lib/readline.c ../lib/unp.h
+	$(CC) $(CFLAGS) -c ../lib/readline.c
+
+wraplib.o:../lib/wraplib.c ../lib/unp.h
+	$(CC) $(CFLAGS) -c ../lib/wraplib.c
+
+wrapstdio.o:../lib/wrapstdio.c ../lib/unp.h
+	$(CC) $(CFLAGS) -c ../lib/wrapstdio.c
+
+wrapunix.o:../lib/wrapunix.c ../lib/unp.h
+	$(CC) $(CFLAGS) -c ../lib/wrapunix.c
+
+wrapsock.o:../lib/wrapsock.c ../lib/unp.h
+	$(CC) $(CFLAGS) -c ../lib/wrapsock.c
+
+error.o:../lib/error.c ../lib/unp.h
+	$(CC) $(CFLAGS) -c ../lib/error.c
+	
+tcp_connect.o:../lib/tcp_connect.c ../lib/unp.h
+	$(CC) $(CFLAGS) -c ../lib/tcp_connect.c
+	
+tcp_listen.o:../lib/tcp_listen.c ../lib/unp.h
+	$(CC) $(CFLAGS) -c ../lib/tcp_listen.c
+	
+web_child.o:./web_child.c ../lib/unp.h
+	$(CC) $(CFLAGS) -c ./web_child.c  -I ../lib
+	
+sig_chld_waitpid.o:./sig_chld_waitpid.c ../lib/unp.h
+	$(CC) $(CFLAGS) -c ./sig_chld_waitpid.c  -I ../lib
+	
+pr_cpu_time.o:./pr_cpu_time.c ../lib/unp.h
+	$(CC) $(CFLAGS) -c ./pr_cpu_time.c  -I ../lib
+	
+signal.o:../lib/signal.c ../lib/unp.h
+	$(CC) $(CFLAGS) -c ../lib/signal.c
